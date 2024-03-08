@@ -85,6 +85,7 @@ namespace CG
 			}
 		);
 
+		// Set the key callback
 		glfwSetKeyCallback(
 			mainWindow,
 			[](GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -94,7 +95,7 @@ namespace CG
 				mainScene->OnKeyboard(key, action);
 			}
 		);		
-
+		// Set the mouse callback
 		glfwSetCursorPosCallback(
 			mainWindow,
 			[](GLFWwindow* window, double x, double y)
@@ -106,7 +107,7 @@ namespace CG
 		);
 
 
-
+		// Set the mouse button callback
 		glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		controlWindow = new ControlWindow();

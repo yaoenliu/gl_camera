@@ -17,8 +17,11 @@ namespace CG
 
 	auto MainScene::Initialize() -> bool
 	{
+		// load the shader
 		glLoadIdentity();
-		gluPerspective(90, aspect_ratio, 0.01f, 500.0f);
+		// Set the camera perspective
+		gluPerspective(fov, aspect_ratio, 0.01f, 500.0f);
+		// Set the camera position and look direction
 		gluLookAt(camera_x, camera_y, camera_z, camera_x + camera_look_x, camera_y + camera_look_y, camera_z + camera_look_z, 0, 1, 0);
 		glEnable(GL_DEPTH_TEST);
 		glCullFace(GL_BACK);
@@ -28,57 +31,64 @@ namespace CG
 
 	void MainScene::Update(double dt)
 	{
-		float v_weight = sin(glm::radians(vertical_angle));
-		float h_weight = cos(glm::radians(vertical_angle));
+		float v_weight = sin(glm::radians(vertical_angle)); // the weight of the vertical movement
+		float h_weight = cos(glm::radians(vertical_angle)); // the weight of the horizontal movement
+		// the horizontal movement (also vertical if vertical_angle is not 0)
 		if (keydown[0])
 		{
-			camera_x += 0.04* h_weight * cos(glm::radians(horizontal_angle));
-			camera_y += 0.04* v_weight;
-			camera_z -= 0.04* h_weight * sin(glm::radians(horizontal_angle));
+			camera_x += camera_translate_speed * h_weight * cos(glm::radians(horizontal_angle));
+			camera_y += camera_translate_speed * v_weight;
+			camera_z -= camera_translate_speed * h_weight * sin(glm::radians(horizontal_angle));
 		}
 		if (keydown[1])
 		{
-			camera_x -= 0.04 * h_weight * cos(glm::radians(horizontal_angle));
-			camera_y -= 0.04 * v_weight;
-			camera_z += 0.04 * h_weight * sin(glm::radians(horizontal_angle));
+			camera_x -= camera_translate_speed * h_weight * cos(glm::radians(horizontal_angle));
+			camera_y -= camera_translate_speed * v_weight;
+			camera_z += camera_translate_speed * h_weight * sin(glm::radians(horizontal_angle));
 		}
 		if (keydown[2])
 		{
-			camera_x -= 0.04 * h_weight * sin(glm::radians(horizontal_angle));
-			camera_z -= 0.04 * h_weight * cos(glm::radians(horizontal_angle));
+			camera_x -= camera_translate_speed * h_weight * sin(glm::radians(horizontal_angle));
+			camera_z -= camera_translate_speed * h_weight * cos(glm::radians(horizontal_angle));
 		}
 		if (keydown[3])
 		{
-			camera_x += 0.04 * h_weight * sin(glm::radians(horizontal_angle));
-			camera_z += 0.04 * h_weight * cos(glm::radians(horizontal_angle));
+			camera_x += camera_translate_speed * h_weight * sin(glm::radians(horizontal_angle));
+			camera_z += camera_translate_speed * h_weight * cos(glm::radians(horizontal_angle));
 		}
+		// the vertical movement
 		if (keydown[4])
 		{
-			camera_y += 0.04;
+			camera_y += camera_translate_speed;
 		}
 		if (keydown[5])
 		{
-			camera_y -= 0.04;
+			camera_y -= camera_translate_speed;
 		}
-		if (keydown[0] || keydown[1] || keydown[2] || keydown[3] || keydown[4] || keydown[5])
-			updateTitle();
-
+		// update the camera look direction
+		camera_look_x = cos(glm::radians(horizontal_angle));
+		camera_look_z = -sin(glm::radians(horizontal_angle));
+		camera_look_y = sin(glm::radians(vertical_angle));
 	}
 
 	void MainScene::Render()
 	{
+		// update the camera position and look direction
 		glLoadIdentity();
-
-
-		gluPerspective(90, aspect_ratio, 0.01f, 500.0f);
+		gluPerspective(fov, aspect_ratio, 0.01f, 500.0f);
 		gluLookAt(camera_x, camera_y, camera_z, camera_x + camera_look_x, camera_y + camera_look_y, camera_z + camera_look_z, 0, 1, 0);
 
+		// Clear the color and depth buffer
 		glClearColor(0.0, 0.0, 0.0, 1); // Black background
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glPolygonMode(GL_FRONT_AND_BACK, mode);
 
-		float d = 0.15;
-		// Start drawing triangles in counter-clockwise (ccw) order
+		// Update the rotation of the object
+		glRotated(rotation++, 0, 1, 0);
+		glTranslatef(0, sin(glm::radians(rotation)) / 6, 0);
+
+		float d = 0.15; // the depth of the object
+		// Start drawing the object
 		glBegin(GL_TRIANGLES);
 		//0
 		glColor3f(1, 0.95, 0.01);
@@ -223,19 +233,25 @@ namespace CG
 		glVertex3f(0.2743, -0.089, 0);
 		// End
 		glEnd();
+
+		// update the title
+		updateTitle();
 	}
 
+	// update the camera perspective when the window is resized
 	void MainScene::OnResize(int width, int height)
 	{
 		aspect_ratio = ((float)width) / ((float)height);
 		std::cout << "MainScene Resize: " << width << " " << height << std::endl;
 		glLoadIdentity();
-		gluPerspective(90, aspect_ratio, 0.01f, 500.0f);
+		gluPerspective(fov, aspect_ratio, 0.01f, 500.0f);
 		gluLookAt(camera_x, camera_y, camera_z, camera_x + camera_look_x, camera_y + camera_look_y, camera_z + camera_look_z, 0, 1, 0);
 	}
 
+	// keyboard event
 	void MainScene::OnKeyboard(int key, int action)
 	{
+		// ignore the repeat action
 		if (action == GLFW_REPEAT)
 		{
 			return;
@@ -264,11 +280,21 @@ namespace CG
 			case GLFW_KEY_Q:
 				keydown[5] = true;
 				break;
-			case GLFW_KEY_ESCAPE:
-				glfwSetWindowShouldClose(glfwGetCurrentContext(), GLFW_TRUE);
+			case GLFW_KEY_R: // reset key
+				camera_x = 0;
+				camera_y = 0;
+				camera_z = 5;
+				horizontal_angle = 90;
+				vertical_angle = 0;
+				camera_look_x = 0;
+				camera_look_y = 0;
+				camera_look_z = -1;
 				break;
-			case GLFW_KEY_LEFT_ALT:
-				glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			case GLFW_KEY_ESCAPE: // close the window
+				glfwSetWindowShouldClose(thisWindow, GLFW_TRUE);
+				break;
+			case GLFW_KEY_LEFT_ALT: // stop locking the cursor
+				glfwSetInputMode(thisWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 				cursor_locked = false;
 				break;
 			}
@@ -315,8 +341,8 @@ namespace CG
 			case GLFW_KEY_Q:
 				keydown[5] = false;
 				break;
-			case GLFW_KEY_LEFT_ALT:
-				glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			case GLFW_KEY_LEFT_ALT: // continue locking the cursor
+				glfwSetInputMode(thisWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 				mouse_last_x = -1;
 				cursor_locked = true;
 				break;
@@ -324,41 +350,32 @@ namespace CG
 		}
 	}
 
+	// mouse move event
 	void MainScene::OnMouseMove(double x, double y)
 	{
-		if (mouse_last_x == -1 || !cursor_locked)
+		// ignore the first event or the cursor is not locked
+		if (mouse_last_x != -1 && cursor_locked)
 		{
-			mouse_last_x = x;
-			mouse_last_y = y;
-			return;
+			// update the camera look direction
+			horizontal_angle += (mouse_last_x - x) * camera_rotate_speed;
+			vertical_angle += (mouse_last_y - y) * camera_rotate_speed;
+
+			// limit the vertical angle
+			if (horizontal_angle > 360)horizontal_angle -= 360;
+			if (horizontal_angle < 0)horizontal_angle += 360;
+			if (vertical_angle > 90)vertical_angle = 90;
+			if (vertical_angle < -90)vertical_angle = -90;
 		}
 		//std::cout << "MainScene OnMouseMove: " << x << " " << y << std::endl;
-
-		horizontal_angle += (mouse_last_x - x) / 6;
-		vertical_angle += (mouse_last_y - y) / 6;
-
-		if (horizontal_angle > 360)horizontal_angle -= 360;
-		if (horizontal_angle < 0)horizontal_angle += 360;
-		if (vertical_angle > 90)vertical_angle = 90;
-		if (vertical_angle < -90)vertical_angle = -90;
-
-		camera_look_x = cos(glm::radians(horizontal_angle));
-		camera_look_z = -sin(glm::radians(horizontal_angle));
-		camera_look_y = sin(glm::radians(vertical_angle));
-
-		glLoadIdentity();
-		gluPerspective(90, aspect_ratio, 0.01f, 500.0f);
-		gluLookAt(camera_x, camera_y, camera_z, camera_x + camera_look_x, camera_y + camera_look_y, camera_z + camera_look_z, 0, 1, 0);
-
 		mouse_last_x = x;
 		mouse_last_y = y;
 
-		updateTitle();
 	}
 
+	// This could cost a lot of performance
 	void MainScene::updateTitle()
 	{
-		glfwSetWindowTitle(glfwGetCurrentContext(), ("Camera Position: (" + std::to_string(camera_x) + ", " + std::to_string(camera_y) + ", " + std::to_string(camera_z) + ") | Camera Look: (" + std::to_string(camera_look_x) + ", " + std::to_string(camera_look_y) + ", " + std::to_string(camera_look_z) + ")").c_str());
+		glfwSetWindowTitle(thisWindow, ("Camera Position: (" + std::to_string(camera_x) + ", " + std::to_string(camera_y) + ", " + std::to_string(camera_z) + ") | Camera Look: (" + std::to_string(camera_look_x) + ", " + std::to_string(camera_look_y) + ", " + std::to_string(camera_look_z) + ")").c_str());
 	}
 
 	void MainScene::SetMode(int mode)
