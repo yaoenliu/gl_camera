@@ -32,6 +32,12 @@
     <ClCompile Include="..\src\Scene\MainScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Object\object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadShaders.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
@@ -48,6 +54,12 @@
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{e341a3e5-cdcc-4216-b5fc-da9c07bd2fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{a870fe71-0e74-447d-ae2c-704a5fba7f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{cc3830a4-a082-4687-bdec-c25dacf3b66b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,5 +90,15 @@
     <ClInclude Include="..\src\Scene\MainScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Object\object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadShaders.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="frag" />
+    <None Include="vert" />
   </ItemGroup>
 </Project>
