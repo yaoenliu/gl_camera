@@ -58,9 +58,8 @@ namespace CG
 		std::float_t vertical_angle = 0;
 
 		// the speed of the camera movement and rotation
-		std::float_t camera_translate_speed = 0.04f;
-		std::float_t camera_rotate_speed = horizontal_angle / 600;
-		// the ratio of the fov and the camera_rotate_speed should be 600:1, so that the object in the center of the screen will always ran out when the mouse moves 600 pixels
+		std::float_t camera_translate_speed = 0.4f;
+		std::float_t camera_rotate_speed = 0.1f;
 
 		// the position of the mouse when last event was called
 		std::int16_t mouse_last_x = -1;
@@ -76,6 +75,11 @@ namespace CG
 		
 		// the window that this scene is in
 		GLFWwindow* thisWindow = glfwGetCurrentContext();
+
+		glm::mat4 ProjectionMatrix;
+		glm::mat4 ViewMatrix;
+
+		object star;
 
 	};
 }

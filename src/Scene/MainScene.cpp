@@ -26,6 +26,124 @@ namespace CG
 		glEnable(GL_DEPTH_TEST);
 		glCullFace(GL_BACK);
 		glEnable(GL_CULL_FACE);
+
+		star.initialize();
+		char vert[] = "vert";
+		char frag[] = "frag";
+		star.setShader(vert, frag);
+
+		for (int i = 0; i < 20; i++)
+		{
+			star.setColor(glm::vec3(1, 0.95, 0.01));
+			star.setColor(glm::vec3(1, 0.95, 0.01));
+			star.setColor(glm::vec3(0.4, 0.4, 0.1));
+		}
+
+		float d = 0.15;
+		float size = 10;
+
+		//0
+		star.setPoint(glm::vec3(0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.2743, -0.089, 0) * size);
+
+		//1
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(0.195, 0.233, 0) * size);
+
+		//2			
+		star.setPoint(glm::vec3(0, 0.755, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.195, 0.233, 0) * size);
+
+		//3
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0, 0.755, 0) * size);
+		star.setPoint(glm::vec3(-0.195, 0.233, 0) * size);
+
+		//4
+		star.setPoint(glm::vec3(-0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.195, 0.233, 0) * size);
+
+		//5
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(-0.2743, -0.089, 0) * size);
+
+		//6	
+		star.setPoint(glm::vec3(-0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.2743, -0.089, 0) * size);
+
+		//7
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(0, -0.377, 0) * size);
+
+		//8
+		star.setPoint(glm::vec3(0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0, -0.377, 0) * size);
+
+		//9
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(0.2743, -0.089, 0) * size);
+
+		d = -d;
+
+		//10
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(0.2743, -0.089, 0) * size);
+
+		//11
+		star.setPoint(glm::vec3(0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.195, 0.233, 0) * size);
+
+		//12			
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0, 0.755, 0) * size);
+		star.setPoint(glm::vec3(0.195, 0.233, 0) * size);
+
+		//13
+		star.setPoint(glm::vec3(0, 0.755, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.195, 0.233, 0) * size);
+
+		//14
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(-0.195, 0.233, 0) * size);
+
+		//15
+		star.setPoint(glm::vec3(-0.718, 0.233, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.2743, -0.089, 0) * size);
+
+		//16	
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(-0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(-0.2743, -0.089, 0) * size);
+
+		//17
+		star.setPoint(glm::vec3(-0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0, -0.377, 0) * size);
+
+		//18
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(0, -0.377, 0) * size);
+
+		//19
+		star.setPoint(glm::vec3(0.443, -0.610, 0) * size);
+		star.setPoint(glm::vec3(0, 0, d) * size);
+		star.setPoint(glm::vec3(0.2743, -0.089, 0) * size);
+
 		return true;
 	}
 
@@ -74,166 +192,21 @@ namespace CG
 	void MainScene::Render()
 	{
 		// update the camera position and look direction
-		glLoadIdentity();
-		gluPerspective(fov, aspect_ratio, 0.01f, 500.0f);
-		gluLookAt(camera_x, camera_y, camera_z, camera_x + camera_look_x, camera_y + camera_look_y, camera_z + camera_look_z, 0, 1, 0);
+		ViewMatrix = glm::lookAt(glm::vec3(camera_x, camera_y, camera_z), glm::vec3(camera_x + camera_look_x, camera_y + camera_look_y, camera_z + camera_look_z), glm::vec3(0, 1, 0));
+		ProjectionMatrix = glm::perspective(glm::radians(fov), aspect_ratio, 0.01f, 500.0f);
 
 		// Clear the color and depth buffer
 		glClearColor(0.0, 0.0, 0.0, 1); // Black background
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glPolygonMode(GL_FRONT_AND_BACK, mode);
 
-		// Update the rotation of the object
-		glRotated(rotation++, 0, 1, 0);
-		glTranslatef(0, sin(glm::radians(rotation)) / 6, 0);
+		//// Update the rotation of the object
+		mat4 rotate = star.setRotate (rotation++, 0, 1, 0);
+		mat4 translate = star.setTranslate(0, sin(glm::radians(rotation))*10, 0);
+		mat4 scale = star.setScale(1, 1, 1);
+		//glTranslatef(0, sin(glm::radians(rotation)) / 6, 0);
 
-		float d = 0.15; // the depth of the object
-		// Start drawing the object
-		glBegin(GL_TRIANGLES);
-		//0
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.718, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.2743, -0.089, 0);
-		//1
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.718, 0.233, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.195, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		//2
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.195, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0.755, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		//3
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0.755, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.195, 0.233, 0);
-		//4
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.195, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.718, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		//5
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.718, 0.233, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.2743, -0.089, 0);
-		//6	
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.2743, -0.089, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.443, -0.610, 0);
-		//7
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.443, -0.610, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0, -0.377, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		//8
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0, -0.377, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.443, -0.610, 0);
-		//9
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.443, -0.610, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.2743, -0.089, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		d = -d;
-		//10
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.718, 0.233, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.2743, -0.089, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		//11
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.718, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.195, 0.233, 0);
-		//12
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.195, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0.755, 0);
-		//13
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.195, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0.755, 0);
-		//14
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.195, 0.233, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.718, 0.233, 0);
-		//15
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.2743, -0.089, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.718, 0.233, 0);
-		//16	
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.443, -0.610, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(-0.2743, -0.089, 0);
-		//17
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(-0.443, -0.610, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0, -0.377, 0);
-		//18
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.443, -0.610, 0);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0, -0.377, 0);
-		//19
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0.443, -0.610, 0);
-		glColor3f(1, 0.95, 0.01);
-		glVertex3f(0, 0, d);
-		glColor3f(0.4, 0.4, 0.1);
-		glVertex3f(0.2743, -0.089, 0);
-		// End
-		glEnd();
-
+		star.render(GL_TRIANGLES, ProjectionMatrix, ViewMatrix , rotate*translate*scale);
 		// update the title
 		updateTitle();
 	}
@@ -243,9 +216,6 @@ namespace CG
 	{
 		aspect_ratio = ((float)width) / ((float)height);
 		std::cout << "MainScene Resize: " << width << " " << height << std::endl;
-		glLoadIdentity();
-		gluPerspective(fov, aspect_ratio, 0.01f, 500.0f);
-		gluLookAt(camera_x, camera_y, camera_z, camera_x + camera_look_x, camera_y + camera_look_y, camera_z + camera_look_z, 0, 1, 0);
 	}
 
 	// keyboard event
